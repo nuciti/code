@@ -17,6 +17,7 @@ Relevant qote:
 # [Mehar 2013](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6654565)
 
 # [Xiang, 2016](https://www.sciencedirect.com/science/article/pii/S0306261916307966)
+The paper formulates an economic planning model for optimal placement of charging stations (CSs) for electric vehicles. The origin-destination traffic flow data is considered in the optimisation problem in order to determine the location of the CSs. The capacity of the CSs is determined after obtaining the equilibrium traffic flow on each road. A queueing model is considered for the service system of CSs, in which the arrival of vehicles in a certain CS is a Poisson process. Load capability constraints are also included in the model.
 
 # [Jin 2013. "Study on multi-level layout planning of electric vehicle charging stations based on an improved genetic algorithm."](http://www.ijsgce.com/uploadfile/2012/1019/20121019062223975.pdf)
 
