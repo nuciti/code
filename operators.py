@@ -13,3 +13,6 @@ def random_individual(graph: nx.Graph) -> nx.Graph:
     for (u,v) in random_graph.edges:
         random_graph[u][v]['weight'] = np.random.random()
     return random_graph
+
+def graph_weights(graph):
+    return [graph.edges[x]['weight'] for x in graph.edges] 
