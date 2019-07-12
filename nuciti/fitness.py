@@ -2,7 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt 
 
 def fitness(graph) : 
-    dc = nx.degree_centrality(graph)
+    dc = nx.betweenness_centrality(graphe, weight='weight')
     dc = dc.values()
     highests = sorted(dc)
     return sum(highests[-10:])
