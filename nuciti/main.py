@@ -30,11 +30,20 @@ p_mutation = 0.1
 
 for i in range(1):
     new_individuals = {}
+
+    # here we do crossover of pairs of individuals from the old population with possible crossover
+    for individual1 in individuals.keys():
+        for individual2 in individuals.keys():
+            if individual1 is not individual2 and random.random() < p_crossover:
+                new_individual = operators.crossover(individual1, individual2)
+                if random.random() < p_mutation: new_individual = operators.mutation(new_individual, p_mutation)
+                new_individuals[new_individual] = fitness.fitness(new_individual)
+
+    # here we do mutation of the individuals in the population without changing them
     for individual in individuals.keys():
         if random.random() < p_mutation:
             new_individual = operators.mutation(individual,p_mutation)
-            new_individual_fitness = fitness.fitness(new_individual)
-            new_individuals[new_individual] = new_individual_fitness
+            new_individuals[new_individual] = fitness.fitness(new_individual)
     # Need to do crossover
     
     individuals = selection(individuals, new_individuals)
