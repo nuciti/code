@@ -14,5 +14,7 @@ def random_individual(graph: nx.Graph) -> nx.Graph:
         random_graph[u][v]['weight'] = np.random.random()
     return random_graph
 
+# new function please test 
+
 def graph_weights(graph):
     return [graph.edges[x]['weight'] for x in graph.edges] 
