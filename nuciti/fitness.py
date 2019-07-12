@@ -4,9 +4,7 @@ import numpy as np
 
 def calculate(graph):
     dc = nx.betweenness_centrality(graph, weight='weight')
-    dc = dc.values()
-    sorted = np.argsort(dc[-10:])
-    return np.sum(highests)
-
-    highests = sorted(dc)
-    return sum(highests[-10:])
+    dc = list(dc.values())
+    sorted = np.sort(dc)
+    highest_10 = sorted[-10:]
+    return np.sum(highest_10)
