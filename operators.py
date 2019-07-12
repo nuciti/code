@@ -2,7 +2,12 @@ import numpy as np
 import networkx as nx
 import copy
 
-np.random.seed(42)
+
+def seed(seed):
+    np.random.seed(seed)
+    
+    
+seed(42)
 
 
 '''
@@ -30,3 +35,14 @@ def crossover(graph1, graph2):
         if np.random.choice([True, False]):
             new_graph[u][v]['weight'] = graph2[u][v]['weight']
     return new_graph
+
+'''
+Does the mutation operation. Takes as input a graph and probability of a mutation.
+'''
+def mutation(graph, probability):
+    new_graph = copy.deepcopy(graph)
+    for (u, v) in new_graph.edges:
+        if np.random.random() < probability:
+            new_graph[u][v]['weight'] = np.random.random()
+    return new_graph
+
