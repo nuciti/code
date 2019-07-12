@@ -1,13 +1,5 @@
 import numpy as np
-import networkx as nx
 import copy
-
-
-def seed(seed):
-    np.random.seed(seed)
-    
-    
-seed(42)
 
 
 '''
@@ -19,7 +11,6 @@ def random_individual(graph):
         random_graph[u][v]['weight'] = np.random.random()
     return random_graph
 
-# new function please test 
 
 def graph_weights(graph):
     return [graph.edges[x]['weight'] for x in graph.edges] 
