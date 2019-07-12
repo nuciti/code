@@ -8,8 +8,7 @@ def fitness(graph) :
     return sum(highests[-10:])
     
 
-G = nx.watts_strogatz_graph(100, 7, 0.3)
-nx.draw(G)
-plt.show()
+# nx.draw(G)
+# plt.show()
 
-print 'Fitness = ', fitness(G)
+#print 'Fitness = ', fitness(G)
