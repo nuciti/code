@@ -13,11 +13,11 @@ def selection(individuals, new_individuals):
     # Returns the fittest half of the population
     all_individuals = dict(individuals.items() + new_individuals.items())
     sorted_individuals = sorted(all_individuals.values())
-    new_population = []
+    new_population = {}
     for fitness in sorted_individuals[:(pop_size/2)]:
         for (k,v) in all_individuals.items():
             if v==fitness:
-                new_population.append(k)
+                new_population[k] = v
     return new_population
 
 pop_size = 20 # Keep even
@@ -40,7 +40,6 @@ for i in xrange(1):
     # Need to do crossover
     
     individuals = selection(individuals, new_individuals)
-    print individuals
 
 #     parents_and_offspring = individuals + new_individuals
 #     print parents_and_offspring
