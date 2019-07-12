@@ -8,7 +8,7 @@ np.random.seed(42)
 '''
 Takes as input a graph structure and returns a copy of the graph with random weights.
 '''
-def random_individual(graph: nx.Graph) -> nx.Graph:
+def random_individual(graph):
     random_graph = copy.deepcopy(graph)
     for (u,v) in random_graph.edges:
         random_graph[u][v]['weight'] = np.random.random()
