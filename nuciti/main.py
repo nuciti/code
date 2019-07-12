@@ -1,52 +1,110 @@
-import random 
+import random
+
+import numpy as np
+
+import data
 import fitness
-import generate_graph
 import operators
 
+# must be even
+POP_SIZE = 20
+EPOCHS = 100
+
+P_CROSSOVER = 0.4
+P_MUTATION_POP = 0.5
+P_MUTATION_SPECIMEN = 0.1
 
 
-def selection(individuals, new_individuals):
-    # Returns the fittest half of the population
-    all_individuals = individuals.copy()	
-    all_individuals.update(new_individuals)	
-    #all_individuals = dict(individuals.items() + new_individuals.items())
-    sorted_individuals = sorted(all_individuals.values())
-    new_population = {}
-    for fitness in sorted_individuals[-(int(pop_size/2)):]:
-        for (k,v) in all_individuals.items():
-            if v==fitness:
-                new_population[k] = v
-    return new_population
+def init_pop(pop_size: int):
+    graph = data.generate()
+    pop = []
 
-pop_size = 20 # Keep even
+    for i in range(pop_size):
+        specimen = operators.random_individual(graph)
+        pop.append(specimen)
 
-# Initialise population
-individuals = {}
-for individual in [operators.random_individual(generate_graph.generate_graph()) for _ in range(pop_size)]:
-    individuals[individual] = fitness.fitness(individual)
+    return pop
 
-p_crossover = 0.1
-p_mutation = 0.1
 
-for i in range(1):
-    new_individuals = {}
+def crossover(pop):
+    new_pop = []
 
-    # here we do crossover of pairs of individuals from the old population with possible crossover
-    for individual1 in individuals.keys():
-        for individual2 in individuals.keys():
-            if individual1 is not individual2 and random.random() < p_crossover:
-                new_individual = operators.crossover(individual1, individual2)
-                if random.random() < p_mutation: new_individual = operators.mutation(new_individual, p_mutation)
-                new_individuals[new_individual] = fitness.fitness(new_individual)
+    for specimen in pop:
+        if random.random() < P_CROSSOVER:
 
-    # here we do mutation of the individuals in the population without changing them
-    for individual in individuals.keys():
-        if random.random() < p_mutation:
-            new_individual = operators.mutation(individual,p_mutation)
-            new_individuals[new_individual] = fitness.fitness(new_individual)
-    
-    individuals = selection(individuals, new_individuals)
+            mate = pop[random.randrange(len(pop))]
+            child = operators.crossover(specimen, mate)
 
-#     parents_and_offspring = individuals + new_individuals
-#     print parents_and_offspring
-#     sorted_fitnesses = 
+            new_pop.append(child)
+
+        else:
+            new_pop.append(specimen)
+
+    return new_pop
+
+
+def mutation(pop):
+    new_pop = []
+
+    for specimen in pop:
+        if random.random() < P_MUTATION_POP:
+            mutated = operators.mutation(specimen, P_MUTATION_SPECIMEN)
+            new_pop.append(mutated)
+        else:
+            new_pop.append(specimen)
+
+    return new_pop
+
+
+def evaluate_pop(pop):
+    scores = []
+
+    for specimen in pop:
+        score = fitness.calculate(specimen)
+        scores.append(score)
+
+    return scores
+
+
+def selection(old_pop, old_scores, new_pop):
+    new_scores = evaluate_pop(new_pop)
+
+    pop = old_pop + new_pop
+    scores = old_scores + new_scores
+
+    selected = []
+    selected_scores = []
+
+    for index in np.argsort(scores):
+        selected.append(pop[index])
+        selected_scores.append(scores[index])
+
+    pop_size = len(old_pop)
+
+    selected = selected[-pop_size:]
+    selected_scores = selected_scores[-pop_size:]
+
+    return selected, selected_scores
+
+
+def main():
+    stats = []
+
+    # Initialise population
+    pop = init_pop(POP_SIZE)
+    scores = evaluate_pop(pop)
+    stats.append(scores)
+
+    for i in range(EPOCHS):
+        new_pop = crossover(pop)
+        new_pop = mutation(new_pop)
+        new_pop, new_scores = selection(pop, scores, new_pop)
+
+        stats.append(new_scores)
+
+        pop = new_pop
+        scores = new_scores
+
+
+if __name__ == "__main__":
+    main()

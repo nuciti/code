@@ -16,6 +16,8 @@ def graph_weights(graph):
     return [graph.edges[x]['weight'] for x in graph.edges] 
 
 
+
+
 '''
 Does the crossover operation. Takes as input two graphs with weights and produces a new graph with weights. Each weight
 is randomly and independently picked from either of the two original graphs.

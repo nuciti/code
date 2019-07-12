@@ -26,7 +26,7 @@ def test_crossover():
     assert child.number_of_edges() == parent_1.number_of_edges()
 
 
-def mutation():
+def test_mutation():
     graph = data.generate()
 
     individual = operators.random_individual(graph)
