@@ -9,6 +9,17 @@ def dummy_crossover(l):
 def dummy_mutation(l):
     return l
 
+def selection(individuals, new_individuals):
+    # Returns the fittest half of the population
+    all_individuals = dict(individuals.items() + new_individuals.items())
+    sorted_individuals = sorted(all_individuals.values())
+    new_population = []
+    for fitness in sorted_individuals[:(pop_size/2)]:
+        for (k,v) in all_individuals.items():
+            if v==fitness:
+                new_population.append(k)
+    return new_population
+
 pop_size = 20 # Keep even
 
 # Initialise population
@@ -28,15 +39,8 @@ for i in xrange(1):
             new_individuals[new_individual] = new_individual_fitness
     # Need to do crossover
     
-    all_individuals = dict(individuals.items() + new_individuals.items())
-    sorted_individuals = sorted(all_individuals.values())
-    new_population = []
-    for fitness in sorted_individuals[:(pop_size/2)]:
-        for (k,v) in all_individuals.items():
-            if v==fitness:
-                new_population.append(k)
-    print sorted_individuals
-    print new_population
+    individuals = selection(individuals, new_individuals)
+    print individuals
 
 #     parents_and_offspring = individuals + new_individuals
 #     print parents_and_offspring
