@@ -9,10 +9,10 @@ def selection(individuals, new_individuals):
     # Returns the fittest half of the population
     all_individuals = individuals.copy()	
     all_individuals.update(new_individuals)	
-    all_individuals = dict(individuals.items() + new_individuals.items())
+    #all_individuals = dict(individuals.items() + new_individuals.items())
     sorted_individuals = sorted(all_individuals.values())
     new_population = {}
-    for fitness in sorted_individuals[:(int(pop_size/2))]:
+    for fitness in sorted_individuals[-(int(pop_size/2)):]:
         for (k,v) in all_individuals.items():
             if v==fitness:
                 new_population[k] = v
