@@ -44,7 +44,6 @@ for i in range(1):
         if random.random() < p_mutation:
             new_individual = operators.mutation(individual,p_mutation)
             new_individuals[new_individual] = fitness.fitness(new_individual)
-    # Need to do crossover
     
     individuals = selection(individuals, new_individuals)
 
