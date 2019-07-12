@@ -8,5 +8,8 @@
     "python.pythonPath": "env\\Scripts\\python.exe",
 
     "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 200
+    "files.autoSaveDelay": 200,
+
+    "python.jediEnabled": false,
+    "vsintellicode.python.completionsEnabled": true
 }

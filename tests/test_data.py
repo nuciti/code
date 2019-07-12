@@ -1,8 +1,8 @@
-from nuciti.generate_graph import generate_graph
+from nuciti import data
 
 
 def test_generate_graph():
-    graph = generate_graph()
+    graph = data.generate()
 
     assert graph is not None
     assert graph.number_of_nodes() > 0
