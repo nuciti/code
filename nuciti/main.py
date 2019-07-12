@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from austen import Logger
 from networkx import Graph
+from tqdm import tqdm
 
 import data
 import ga
@@ -30,11 +31,19 @@ def main():
     batches = [
         Batch(
             graph,
-            ga.Params(100, 100, 0.4, 0.5, 0.1)
-        )
+            ga.Params(200, 40, 0.4, 0.5, 0.1)
+        ),
+        Batch(
+            graph,
+            ga.Params(500, 100, 0.4, 0.5, 0.1)
+        ),
+        Batch(
+            graph,
+            ga.Params(1000, 200, 0.4, 0.5, 0.1)
+        ),
     ]
 
-    for batch in batches:
+    for batch in tqdm(batches):
         graph = batch.graph
         params = batch.params
 
@@ -61,7 +70,7 @@ def main():
 
             data_frame = pd.DataFrame.from_dict(summary)
             logger.save_csv(data_frame, 'summary')
-
+            logger.add_entries(params.as_dict())
 
 
 

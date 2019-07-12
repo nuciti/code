@@ -4,3 +4,4 @@ matplotlib
 pytest
 austen
 pandas
+tqdm

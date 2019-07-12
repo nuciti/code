@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import List
 
 import numpy as np
+from tqdm import tqdm
 
 import data
 import fitness
@@ -106,7 +107,7 @@ def run(graph, params: Params) -> List[EpochStats]:
     scores = __evaluate_pop(pop)
     stats.append(EpochStats(scores))
 
-    for i in range(params.epochs):
+    for i in tqdm(range(params.epochs)):
         new_pop = __crossover(pop, params.p_crossover)
         new_pop = __mutation(new_pop, params.p_mutation_pop, params.p_mutation_specimen)
         new_pop, new_scores = __selection(pop, scores, new_pop)
